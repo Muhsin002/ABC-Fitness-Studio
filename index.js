@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         processOrderButton.addEventListener('click', () => {
             if (cart.length > 0) {
                 alert('Thank you for your order');
+                sessionStorage.removeItem('sessionData');
                 cart = [];
                 const cartItemsDiv = document.querySelector('.cart-items');
                 if (cartItemsDiv) {
