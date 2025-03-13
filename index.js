@@ -77,28 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const feedbackForm = document.getElementById('feedback-form');
-    if (feedbackForm) {
-        feedbackForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const messageInput = document.getElementById('message');
-
-            if (nameInput.value.trim() === '' ||
-                emailInput.value.trim() === '' ||
-                messageInput.value.trim() === '') {
-                alert('Please fill in your name, email, and message.');
-                return; 
-            }
-
-            const formData = new FormData(event.target);
-            console.log('Feedback submitted:', Object.fromEntries(formData.entries()));
-            alert('Thank you for your message Vutomi Mdumela');
-            event.target.reset();
-        });
-    }
-
     const subscribeButton = document.querySelector('.subscribe-button');
     if (subscribeButton) {
         subscribeButton.addEventListener('click', () => {
@@ -106,15 +84,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const userData = { 
-        username: 'vutomi Mdumela', 
-        email: 'mdumelavutomi@gmail.com', 
-        message: 'Hello, I would like to join the gym.' 
-    }; 
+const feedbackForm = document.getElementById('feedback-form');
+if (feedbackForm) {
+    feedbackForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
 
-    localStorage.setItem('userData', JSON.stringify(userData)); 
+        if (nameInput.value.trim() === '' ||
+            emailInput.value.trim() === '' ||
+            messageInput.value.trim() === '') {
+            alert('Please fill in your name, email, and message.');
+            return;
+        }
 
-    const storedUserData = JSON.parse(localStorage.getItem('userData')); 
+        const formData = {
+            username: nameInput.value,
+            email: emailInput.value,
+            message: messageInput.value
+        };
+
+        localStorage.setItem('userData', JSON.stringify(formData)); 
+        console.log('Feedback submitted:', formData);
+
+        alert(`Thank you for your message, ${nameInput.value}`);
+        event.target.reset();
+    });
+}
+
+    const storedUserData = JSON.parse(localStorage.getItem('userData') || '{}'); 
     console.log('User Data from Local Storage:', storedUserData); 
 
     const sessionData = {
